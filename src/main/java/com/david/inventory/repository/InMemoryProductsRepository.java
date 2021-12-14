@@ -1,14 +1,13 @@
 package com.david.inventory.repository;
 
 import com.david.inventory.domain.Product;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
-public class ProductsRepositoryImplementation implements ProductsRepository {
+//@Repository
+public class InMemoryProductsRepository implements ProductsRepository {
 
     List<Product> db = new ArrayList<>() {{
         add(new Product("1", "Papa", "verdura", "Papa"));
