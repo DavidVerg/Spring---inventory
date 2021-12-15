@@ -3,9 +3,11 @@ package com.david.inventory.repository;
 import com.david.inventory.domain.Product;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class SpringJdbcPersonsRepository implements ProductsRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -51,14 +53,14 @@ public class SpringJdbcPersonsRepository implements ProductsRepository {
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getId());
             ps.setString(2, product.getName());
-            ps.setString(2, product.getCategory());
-            ps.setString(2, product.getDescription());
+            ps.setString(3, product.getCategory());
+            ps.setString(4, product.getDescription());
         });
     }
 
     @Override
     public void update(String id, Product product) {
-        String sqlQuery = "update products set name = ?, category = ?, description = ? where id_number = ?";
+        String sqlQuery = "update products set name = ?, category = ?, description = ? where id_product = ?";
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getName());
             ps.setString(2, product.getCategory());
