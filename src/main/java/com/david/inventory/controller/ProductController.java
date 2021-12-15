@@ -1,6 +1,8 @@
 package com.david.inventory.controller;
 
 import com.david.inventory.domain.Product;
+import com.david.inventory.domain.ProductCategory;
+import com.david.inventory.domain.ProductId;
 import com.david.inventory.repository.ProductsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +27,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable("id") String id) {
+    public ResponseEntity<Product> getById(@PathVariable("id") ProductId id) {
         Product product = repository.findById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<Product>> getByCategory(@PathVariable("category") String category) {
+    public ResponseEntity<List<Product>> getByCategory(@PathVariable("category") ProductCategory category) {
         List<Product> products = repository.findByCategory(category);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -43,13 +45,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") String id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") ProductId id, @RequestBody Product product) {
         repository.update(id, product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProd(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteProd(@PathVariable("id") ProductId id) {
         repository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
