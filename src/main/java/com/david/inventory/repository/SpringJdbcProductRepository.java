@@ -51,13 +51,19 @@ public class SpringJdbcProductRepository implements ProductsRepository {
 
     @Override
     public void create(Product product) {
-        String sqlQuery = "insert into products(id_product, name, category, description) values(?, ?, ?, ?)";
+        String sqlQuery = "insert into products(id_product, name, stock, category, description) values(?, ?, ?, ?, ?)";
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getProductId().toString());
             ps.setString(2, product.getProductName().toString());
-            ps.setString(3, product.getProductStock().toString());
+            ps.setInt(3, product.getProductStock().asInteger());
             ps.setString(4, product.getProductCategory().toString());
             ps.setString(5, product.getProductDescription().toString());
+
+            System.out.println(product.getProductId().toString());
+            System.out.println(product.getProductName().toString());
+            System.out.println(product.getProductStock().asInteger());
+            System.out.println(product.getProductCategory().toString());
+            System.out.println(product.getProductDescription().toString());
         });
     }
 

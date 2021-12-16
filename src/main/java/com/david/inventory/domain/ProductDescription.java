@@ -10,6 +10,7 @@ public class ProductDescription {
     public ProductDescription(String value) {
 
         Objects.requireNonNull(value, "Product description can not be null");
+        this.value = value;
 
         String trimmedValue = value.trim();
 
@@ -17,9 +18,11 @@ public class ProductDescription {
             throw new IllegalArgumentException("Product description can not be empty");
         }
 
-        this.value = value;
     }
 
-
+    @Override
+    public String toString() {
+        return value;
+    }
 
 }

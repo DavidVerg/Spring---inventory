@@ -18,14 +18,16 @@ public class ProductStockParser {
 
         @Override
         public void serialize(ProductStock value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+            Integer number = value.asInteger();
+            gen.writeNumber(number);
         }
     }
 
     public static class Deserializer extends JsonDeserializer<ProductStock> {
         @Override
         public ProductStock deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-            return new ProductStock(p.getValueAsInt());
+            int valueAsInt = p.getValueAsInt();
+            return new ProductStock(valueAsInt);
         }
     }
 

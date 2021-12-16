@@ -20,9 +20,11 @@ public class ProductName {
 
         boolean isValid = pattern.matcher(trimmedValue).matches();
 
+
         if(!isValid) {
             throw new IllegalArgumentException("Invalid product name");
         }
+
     }
 
     @Override

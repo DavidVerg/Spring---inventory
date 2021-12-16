@@ -1,8 +1,7 @@
 package com.david.inventory.controller;
 
-import com.david.inventory.domain.Product;
-import com.david.inventory.domain.ProductCategory;
-import com.david.inventory.domain.ProductId;
+import com.david.inventory.domain.*;
+import com.david.inventory.model.CreateProductInput;
 import com.david.inventory.repository.ProductsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable("id") ProductId id) {
+    public ResponseEntity<Product> getById(@PathVariable("id") String productId) {
+        final ProductId id = ProductId.fromString(productId);
         Product product = repository.findById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
@@ -39,7 +39,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestBody CreateProductInput input) {
+
+        Product product = new Product(
+                ProductId.random(),
+                new ProductName(input.getName()),
+                new ProductStock(input.getStock()),
+                new ProductCategory(input.getCategory()),
+                new ProductDescription(input.getDescription())
+        );
         repository.create(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
@@ -51,7 +59,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProd(@PathVariable("id") ProductId id) {
+    public ResponseEntity<?> deleteProd(@PathVariable("id") String productId) {
+        final ProductId id = ProductId.fromString(productId);
         repository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

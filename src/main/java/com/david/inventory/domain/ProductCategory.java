@@ -11,6 +11,7 @@ public class ProductCategory {
     public ProductCategory(String value) {
 
         Objects.requireNonNull(value, "Product category can not be null");
+        this.value = value;
 
         String trimmedValue = value.trim();
 
@@ -20,13 +21,16 @@ public class ProductCategory {
 
         boolean isValid = pattern.matcher(trimmedValue).matches();
 
+
         if(!isValid) {
             throw new IllegalArgumentException("Invalid product name");
         }
 
-        this.value = value;
     }
 
-
+    @Override
+    public String toString() {
+        return value;
+    }
 
 }
