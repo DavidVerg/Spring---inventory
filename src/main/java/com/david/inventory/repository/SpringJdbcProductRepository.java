@@ -40,13 +40,13 @@ public class SpringJdbcProductRepository implements ProductsRepository {
     @Override
     public Product findById(ProductId id) {
         String sqlQuery = "select * from products where id_product = ?";
-        return jdbcTemplate.queryForObject(sqlQuery, rowMapper, id);
+        return jdbcTemplate.queryForObject(sqlQuery, rowMapper, id.toString());
     }
 
     @Override
     public List<Product> findByCategory(ProductCategory category) {
         String sqlQuery = "select * from products where category = ?";
-        return jdbcTemplate.query(sqlQuery, rowMapper, category);
+        return jdbcTemplate.query(sqlQuery, rowMapper, category.toString());
     }
 
     @Override
@@ -58,12 +58,6 @@ public class SpringJdbcProductRepository implements ProductsRepository {
             ps.setInt(3, product.getProductStock().asInteger());
             ps.setString(4, product.getProductCategory().toString());
             ps.setString(5, product.getProductDescription().toString());
-
-            System.out.println(product.getProductId().toString());
-            System.out.println(product.getProductName().toString());
-            System.out.println(product.getProductStock().asInteger());
-            System.out.println(product.getProductCategory().toString());
-            System.out.println(product.getProductDescription().toString());
         });
     }
 
@@ -72,7 +66,7 @@ public class SpringJdbcProductRepository implements ProductsRepository {
         String sqlQuery = "update products set name = ?, stock = ?, category = ?, description = ? where id_product = ?";
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getProductName().toString());
-            ps.setString(2, product.getProductStock().toString());
+            ps.setInt(2, product.getProductStock().asInteger());
             ps.setString(3, product.getProductCategory().toString());
             ps.setString(4, product.getProductDescription().toString());
             ps.setString(5, id.toString());
@@ -82,6 +76,6 @@ public class SpringJdbcProductRepository implements ProductsRepository {
     @Override
     public void delete(ProductId id) {
         String sqlQuery = "delete from products where id_product = ?";
-        jdbcTemplate.update(sqlQuery, id);
+        jdbcTemplate.update(sqlQuery, id.toString());
     }
 }

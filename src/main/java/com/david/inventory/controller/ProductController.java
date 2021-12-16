@@ -2,6 +2,7 @@ package com.david.inventory.controller;
 
 import com.david.inventory.domain.*;
 import com.david.inventory.model.CreateProductInput;
+import com.david.inventory.model.UpdateProductInput;
 import com.david.inventory.repository.ProductsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,13 +54,21 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") ProductId id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") String unsafeId, @RequestBody UpdateProductInput input) {
+        final ProductId id = ProductId.fromString(unsafeId);
+        Product product = new Product(id,
+                                new ProductName(input.getName()),
+                                new ProductStock(input.getStock()),
+                                new ProductCategory(input.getCategory()),
+                                new ProductDescription(input.getDescription())
+                );
         repository.update(id, product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        final Product editedProduct = repository.findById(id);
+        return new ResponseEntity<>(editedProduct, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProd(@PathVariable("id") String productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") String productId) {
         final ProductId id = ProductId.fromString(productId);
         repository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
