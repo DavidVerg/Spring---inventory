@@ -56,7 +56,6 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-<<<<<<< HEAD
     public ResponseEntity<Product> updateProduct(@PathVariable("id") String unsafeProductId, @RequestBody UpdateProductInput input) {
 
         final ProductId productId = ProductId.fromString(unsafeProductId);
@@ -76,25 +75,6 @@ public class ProductController {
     public ResponseEntity<?> deleteProd(@PathVariable("id") String unsafeProductId) {
         final ProductId productId = ProductId.fromString(unsafeProductId);
         services.delete(productId);
-=======
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") String unsafeId, @RequestBody UpdateProductInput input) {
-        final ProductId id = ProductId.fromString(unsafeId);
-        Product product = new Product(id,
-                                new ProductName(input.getName()),
-                                new ProductStock(input.getStock()),
-                                new ProductCategory(input.getCategory()),
-                                new ProductDescription(input.getDescription())
-                );
-        repository.update(id, product);
-        final Product editedProduct = repository.findById(id);
-        return new ResponseEntity<>(editedProduct, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable("id") String productId) {
-        final ProductId id = ProductId.fromString(productId);
-        repository.delete(id);
->>>>>>> 848b78a481057108173a57a96b67145d20f7b7f4
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
