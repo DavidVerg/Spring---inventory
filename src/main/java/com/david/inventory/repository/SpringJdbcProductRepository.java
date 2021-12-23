@@ -19,13 +19,13 @@ public class SpringJdbcProductRepository implements ProductsRepository {
     private final RowMapper<Product> rowMapper = (resultSet, rowNum) -> {
         ProductId productId = ProductId.fromString(resultSet.getString("id_product"));
         ProductName productName = new ProductName(resultSet.getString("name"));
-        ProductStock productStock = new ProductStock(resultSet.getInt("stock"));
+        ProductQuantity productQuantity = new ProductQuantity(resultSet.getInt("stock"));
         ProductCategory productCategory = new ProductCategory(resultSet.getString("category"));
         ProductDescription productDescription = new ProductDescription(resultSet.getString("description"));
         return new Product(
                 productId,
                 productName,
-                productStock,
+                productQuantity,
                 productCategory,
                 productDescription
         );
@@ -55,7 +55,7 @@ public class SpringJdbcProductRepository implements ProductsRepository {
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getProductId().toString());
             ps.setString(2, product.getProductName().toString());
-            ps.setInt(3, product.getProductStock().asInteger());
+            ps.setInt(3, product.getProductQuantity().asInteger());
             ps.setString(4, product.getProductCategory().toString());
             ps.setString(5, product.getProductDescription().toString());
         });
@@ -66,7 +66,7 @@ public class SpringJdbcProductRepository implements ProductsRepository {
         String sqlQuery = "update products set name = ?, stock = ?, category = ?, description = ? where id_product = ?";
         jdbcTemplate.update(sqlQuery, ps -> {
             ps.setString(1, product.getProductName().toString());
-            ps.setInt(2, product.getProductStock().asInteger());
+            ps.setInt(2, product.getProductQuantity().asInteger());
             ps.setString(3, product.getProductCategory().toString());
             ps.setString(4, product.getProductDescription().toString());
             ps.setString(5, id.toString());

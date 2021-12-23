@@ -6,21 +6,21 @@ public class Product {
 
     private final ProductId productId;
     private final ProductName productName;
-    private final ProductStock productStock;
+    private final ProductQuantity productQuantity;
     private final ProductCategory productCategory;
     private final ProductDescription productDescription;
 
-    public Product(ProductId productId, ProductName productName, ProductStock productStock, ProductCategory productCategory, ProductDescription productDescription) {
+    public Product(ProductId productId, ProductName productName, ProductQuantity productQuantity, ProductCategory productCategory, ProductDescription productDescription) {
 
         Objects.requireNonNull(productId, "Product id can not be bull");
         Objects.requireNonNull(productName, "Product name can not be bull");
-        Objects.requireNonNull(productStock, "Product stock can not be bull");
+        Objects.requireNonNull(productQuantity, "Product stock can not be bull");
         Objects.requireNonNull(productCategory, "Product category can not be bull");
         Objects.requireNonNull(productName, "Product description can not be bull");
 
         this.productId = productId;
         this.productName = productName;
-        this.productStock = productStock;
+        this.productQuantity = productQuantity;
         this.productCategory = productCategory;
         this.productDescription = productDescription;
     }
@@ -33,8 +33,8 @@ public class Product {
         return productName;
     }
 
-    public ProductStock getProductStock() {
-        return productStock;
+    public ProductQuantity getProductQuantity() {
+        return productQuantity;
     }
 
     public ProductCategory getProductCategory() {

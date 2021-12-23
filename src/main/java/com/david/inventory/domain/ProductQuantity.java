@@ -2,15 +2,15 @@ package com.david.inventory.domain;
 
 import java.util.Objects;
 
-public class ProductStock {
+public class ProductQuantity {
 
     private final Integer value;
 
-    public ProductStock increment() {
-        return new ProductStock(value + 1);
+    public ProductQuantity increment() {
+        return new ProductQuantity(value + 1);
     }
 
-    public ProductStock(Integer value) {
+    public ProductQuantity(Integer value) {
         Objects.requireNonNull(value, "Product stock quantity can not be null");
         if(value < 0 || value > 300) {
             throw new IllegalArgumentException("Product stock quantity can not be less than 0 or greater than 300");

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class ProductCategory {
 
     private final String value;
-    private static final Pattern pattern = Pattern.compile("^[a-zA-Z\\u00C0-\\u017F\\s]{5,}+$");
+    private static final Pattern pattern = Pattern.compile("^[a-zA-Z\\u00C0-\\u017F\\s]{3,}+$");
 
     public ProductCategory(String value) {
 

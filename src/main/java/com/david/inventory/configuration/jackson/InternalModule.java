@@ -18,8 +18,8 @@ public class InternalModule extends SimpleModule {
         addSerializer(ProductName.class, new ProductNameParser.Serializer());
         addDeserializer(ProductName.class, new ProductNameParser.Deserializer());
 
-        addSerializer(ProductStock.class, new ProductStockParser.Serializer());
-        addDeserializer(ProductStock.class, new ProductStockParser.Deserializer());
+        addSerializer(ProductQuantity.class, new ProductQuantityParser.Serializer());
+        addDeserializer(ProductQuantity.class, new ProductQuantityParser.Deserializer());
 
         addSerializer(ProductCategory.class, new ProductCategoryParser.Serializer());
         addDeserializer(ProductCategory.class, new ProductCategoryParser.Deserializer());

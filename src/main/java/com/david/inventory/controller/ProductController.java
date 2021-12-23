@@ -3,7 +3,6 @@ package com.david.inventory.controller;
 import com.david.inventory.domain.*;
 import com.david.inventory.model.CreateProductInput;
 import com.david.inventory.model.UpdateProductInput;
-import com.david.inventory.repository.ProductsRepository;
 import com.david.inventory.services.ProductServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProdcuts() {
+    public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = services.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -44,12 +43,12 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody CreateProductInput input) {
 
         ProductId productId = ProductId.random();
-        ProductName productName = new ProductName(input.getName());
-        ProductStock productStock = new ProductStock(input.getStock());
-        ProductCategory productCategory = new ProductCategory(input.getCategory());
-        ProductDescription productDescription = new ProductDescription(input.getDescription());
+        ProductName productName = new ProductName(input.getProductName());
+        ProductQuantity productQuantity = new ProductQuantity(input.getProductQuantity());
+        ProductCategory productCategory = new ProductCategory(input.getProductCategory());
+        ProductDescription productDescription = new ProductDescription(input.getProductDescription());
 
-        Product product = new Product(productId, productName, productStock, productCategory, productDescription);
+        Product product = new Product(productId, productName, productQuantity, productCategory, productDescription);
 
         Product createdProduct = services.create(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
@@ -61,11 +60,11 @@ public class ProductController {
         final ProductId productId = ProductId.fromString(unsafeProductId);
 
         ProductName productName = new ProductName(input.getName());
-        ProductStock productStock = new ProductStock(input.getStock());
+        ProductQuantity productQuantity = new ProductQuantity(input.getStock());
         ProductCategory productCategory = new ProductCategory(input.getCategory());
         ProductDescription productDescription = new ProductDescription(input.getDescription());
 
-        Product product = new Product(productId, productName, productStock, productCategory, productDescription);
+        Product product = new Product(productId, productName, productQuantity, productCategory, productDescription);
 
         Product updatedProduct = services.update(productId, product);
         return new ResponseEntity<>(product, HttpStatus.OK);

@@ -1,7 +1,6 @@
 package com.david.inventory.configuration.jackson.codecs;
 
-import com.david.inventory.domain.ProductId;
-import com.david.inventory.domain.ProductStock;
+import com.david.inventory.domain.ProductQuantity;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -12,22 +11,22 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
-public class ProductStockParser {
+public class ProductQuantityParser {
 
-    public static class Serializer extends JsonSerializer<ProductStock> {
+    public static class Serializer extends JsonSerializer<ProductQuantity> {
 
         @Override
-        public void serialize(ProductStock value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        public void serialize(ProductQuantity value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
             Integer number = value.asInteger();
             gen.writeNumber(number);
         }
     }
 
-    public static class Deserializer extends JsonDeserializer<ProductStock> {
+    public static class Deserializer extends JsonDeserializer<ProductQuantity> {
         @Override
-        public ProductStock deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+        public ProductQuantity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
             int valueAsInt = p.getValueAsInt();
-            return new ProductStock(valueAsInt);
+            return new ProductQuantity(valueAsInt);
         }
     }
 

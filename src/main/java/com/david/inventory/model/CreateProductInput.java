@@ -1,53 +1,51 @@
 package com.david.inventory.model;
 
-import java.time.LocalDate;
-
 public class CreateProductInput {
 
-    private String name;
-    private Integer stock;
-    private String category;
-    private String description;
+    private String productName;
+    private Integer productQuantity;
+    private String productCategory;
+    private String productDescription;
 
     public CreateProductInput() {
     }
 
     public CreateProductInput(String name, Integer stock, String category, String description) {
-        this.name = name;
-        this.stock = stock;
-        this.category = category;
-        this.description = description;
+        this.productName = name;
+        this.productQuantity = stock;
+        this.productCategory = category;
+        this.productDescription = description;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Integer getStock() {
-        return stock;
+    public Integer getProductQuantity() {
+        return productQuantity;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
-    public String getCategory() {
-        return category;
+    public String getProductCategory() {
+        return productCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 }
